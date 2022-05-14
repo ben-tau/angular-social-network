@@ -1,3 +1,5 @@
+import { Comment } from '../model/comment';
+
 export interface Post {
   id:number,
   version:number,
@@ -6,5 +8,5 @@ export interface Post {
   visibilite:boolean,
   likes:number,
   auteur:any,
-  commentaires:string[]
+  commentaires:Comment[]
 }

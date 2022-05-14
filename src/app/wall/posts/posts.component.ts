@@ -2,6 +2,8 @@ import { Component, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PostsService } from 'src/app/services/posts.service';
 import { Post } from '../../model/post';
+import { Comment } from '../../model/comment';
+import { ReworkDate } from 'src/app/helpers/reworkDate';
 
 @Component({
   selector: 'app-wall-posts',
@@ -11,7 +13,7 @@ import { Post } from '../../model/post';
 export class WallPostsComponent implements OnInit {
 
   posts!:Post[]
-  comments!:string[]
+  comments!:Comment[]
   showComments:boolean = false
   userDetails!:any
 
@@ -27,8 +29,6 @@ export class WallPostsComponent implements OnInit {
     if(storage){
       this.userDetails = JSON.parse(storage)
     }
-
-    console.log('userDetails',this.userDetails);
   }
 
   displayComments(){
@@ -37,26 +37,13 @@ export class WallPostsComponent implements OnInit {
 
   private getPosts(){
     this.postsService.getPosts(+this.userDetails.id,this.userDetails.token).subscribe(posts=>{
-      console.log("posts",posts);
-
       posts.map(post => {
         let timestamp = +post.datePublication
 
-        var date = new Date(timestamp);
-        var time = new Date(timestamp * 1000);
-        var hours = date.getHours();
-        var minutes = "0" + date.getMinutes();
-        var seconds = "0" + date.getSeconds();
-        var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-
-        post.datePublication = 'le ' + date.toLocaleDateString('fr-FR') + ' à ' + formattedTime
-
-        return post;
+        return ReworkDate.toString(timestamp,post,"datePublication")
       })
 
       this.posts = posts
-      console.log("this.posts",this.posts);
-
     })
   }
 

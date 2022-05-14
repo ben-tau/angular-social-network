@@ -8,7 +8,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,6 +19,7 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { MatStepperModule } from '@angular/material/stepper'
 import { LoginComponent } from './login/login.component';
 import { DataService } from './services/data.service';
+import { JwtInterceptor } from './helpers/jwt.interceptor';
 
 const appRoutes: Routes = [
   {
@@ -123,7 +124,7 @@ const appRoutes: Routes = [
   providers: [
     // UtilisateurService,
     // AuthenticationService,
-    // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],

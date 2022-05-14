@@ -10,23 +10,43 @@ import { PostsService } from 'src/app/services/posts.service';
 })
 export class WallCreatePostComponent implements OnInit {
 
-  contenu! : string
-  visibilite:boolean = false
-  utilisateurId: number = 88
+  // contenu! : string
+  // visibilite:boolean = false
+  utilisateurId: number = 3
+
+  userDetails!:any
+
+  getStorage(){
+    let storage = localStorage.getItem('userDetails');
+    if(storage){
+      this.userDetails = JSON.parse(storage)
+    }
+  }
 
   createPostForm = this.fb.group({
     contenu : ['',Validators.required],
     visibilite : ['',Validators.required],
   })
 
+  get contenu(){
+    return this.createPostForm.get("contenu");
+  }
+  get visibilite(){
+    return this.createPostForm.get("visibilite");
+  }
+
   constructor(private postsService:PostsService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.getStorage()
   }
 
   addPost(){
-    let datePublication:string = new Date().toDateString()
-    this.postsService.createPost(this.contenu,datePublication,this.visibilite,this.utilisateurId).subscribe(/*rafraichir posts ici*/)
+    const controls = this.createPostForm.controls;
+    console.log('contenu ' + controls.contenu.value);
+    console.log('visibilite ' + controls.visibilite.value);
+
+    this.postsService.createPost(this.contenu?.value,this.visibilite?.value,this.utilisateurId,this.userDetails.token).subscribe(/*rafraichir posts ici*/)
   }
 
 }

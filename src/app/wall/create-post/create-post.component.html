@@ -48,18 +48,18 @@
                         </div>
                         <div class="col-10">
                           <h5 class="text-end">Jean Dupont</h5>
-                          <select class="form-select" aria-label="Default select example">
-                            <option selected>Visibilité de la publication</option>
-                            <option value="1">Tout le monde</option>
-                            <option value="2">Vos connexions seulement</option>
-                            <option value="3">Privé</option>
+                          <select class="form-select" aria-label="Default select example" formControlName="visibilite">
+                            <option selected value="false">Visibilité de la publication</option>
+                            <option value="true">Tout le monde</option>
+                            <option value="false">Vos connexions seulement</option>
+                            <option value="false">Privé</option>
                           </select>
                         </div>
                       </div>
                     </div>
                     <div class="col-12 mt-3">
                       <div class="form-floating">
-                        <textarea #contenu class="form-control" placeholder="De quoi voulez-vous parler aujourd'hui ?" id="floatingTextarea" style="min-height:200px"></textarea>
+                        <textarea #contenu class="form-control" placeholder="De quoi voulez-vous parler aujourd'hui ?" id="floatingTextarea" style="min-height:200px" formControlName="contenu"></textarea>
                         <label for="floatingTextarea">Créer une publication</label>
                       </div>
                     </div>
@@ -90,7 +90,7 @@
                           <i class="fa fa-camera"></i>
                         </div>
                         <div class="col-4 text-end">
-                          <button class="btn btn-primary rounded" (click)="addPost()">Publier</button>
+                          <button class="btn btn-primary rounded" [disabled]="!createPostForm.valid" (click)="addPost()">Publier</button>
                         </div>
                       </div>
                     </div>

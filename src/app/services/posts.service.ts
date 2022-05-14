@@ -15,11 +15,13 @@ export class PostsService{
 
   getPosts(userId:number, token:string) : Observable<Post[]>{
 
+    const options = {
+      headers: new HttpHeaders({'Authorization':token}),
+    }
+
     console.log("url",this.postsUrl + userId +'/mur-publications', )
-    return this.http.get<Post[]>(this.postsUrl + userId +'/mur-publications',
-    {
-      headers: new HttpHeaders({'Authorization':token})
-    })
+    return this.http.get<Post[]>(this.postsUrl + userId +'/mur-publications',options
+    )
     .pipe(
       retry(2),
       catchError((error: HttpErrorResponse) => {
@@ -28,14 +30,14 @@ export class PostsService{
     }))
   }
 
-  createPost(contenu:string,datePublication:string,visibilite:boolean,utilisateurId:number) : Observable<Post>{
+  createPost(contenu:string,visibilite:boolean,utilisateurId:number,token:string) : Observable<Post>{
     const post = {
-      contenu,
-      datePublication,
-      visibilite,
-      utilisateurId
+      contenu
+      //visibilite
     }
-    return this.http.post<Post>(this.postsUrl,post)
+    console.log("post object", post);
+
+    return this.http.post<any>(this.postsUrl + `${utilisateurId}/mur/nouvelle-publication`,post)
   }
 
   editPost(id:string | number, post:Post): Observable<any>{

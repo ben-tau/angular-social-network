@@ -4,10 +4,14 @@
     <img src="../../assets/images/logo.jpg" style="width:40px;height:40px" alt="social-network-logo">
   </div>
   <div class="col-11">
-    <h6 class="bold"></h6>
-    <span>Actuellement sans emploi</span>
+
+    <div class="d-flex justify-content-between">
+      <h6 class="bold">{{comment.auteur.nomUtilisateur}}</h6>
+      <span class="date">{{comment.datePublication}}</span>
+    </div>
+    <span>Sans emploi</span>
     <div class="commentCont">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates tenetur culpa molestiae obcaecati sint sequi. Assumenda ex amet similique numquam, sit explicabo officiis obcaecati impedit aspernatur, fugit animi cupiditate veritatis!
+      {{comment.contenu}}
     </div>
   </div>
 </div>

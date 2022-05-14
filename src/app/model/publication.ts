@@ -1,5 +1,5 @@
 import { Utilisateur } from './utilisateur';
-import { Commentaire } from './commentaire';
+import { Comment } from './comment';
 import { PublicationInteraction } from './publication-interaction';
 import { Photo } from './photo';
 
@@ -12,5 +12,5 @@ export class Publication {
   interestReactions: Array<PublicationInteraction> =
     new Array<PublicationInteraction>();
   pictures: Array<Photo> = new Array<Photo>();
-  newComment: Commentaire | undefined;
+  newComment: Comment | undefined;
 }
